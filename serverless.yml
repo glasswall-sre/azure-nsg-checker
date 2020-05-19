@@ -1,0 +1,44 @@
+service: azure-nsg-checker
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-2
+  stage: prod
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - secretsmanager:GetSecretValue
+      Resource: "arn:aws:secretsmanager:eu-west-2:433250546572:secret:azure_nsg_watcher-bbADb2"
+
+functions:
+  nsg-watcher:
+    handler: handler.run
+    events:
+      - schedule:
+          name: azure-nsg-checker-cron
+          description: "Runs the Azure NSG Checker CRON Job"
+          rate: rate(2 minutes)
+
+    environment:
+      # O365 Exchange URI
+      O365_URL: https://endpoints.office.com/endpoints/Worldwide?ServiceAreas=Exchange&ClientRequestId=
+      # Comma separated list
+      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com ,_netblocks3.google.com"
+      # Azure Subscription ID
+      AZURE_SUBSCRIPTION: 359ee0f2-2ad9-4d4f-9187-aa466416a520
+      # Azure App's Secret Name in AWS Secret Manager
+      AZURE_APP_SECRET_NAME: azure_nsg_watcher
+      #Azure NSG RGP
+      AZURE_NSG_RGP: rgp-uks-gwc-prod-vnet
+      #Azure NSG Name
+      AZURE_NSG_NAME: nsg-uks-gwc-k8s-subnet-uksprod1
+      # AWS Secret Region
+      AWS_SECRET_REGION: eu-west-2
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
