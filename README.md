@@ -19,7 +19,7 @@ The Azure NSG Checker is a CRON AWS Lambda service that checks to see if your Az
 
 The system uses a scheduled AWS lambda to periodically connect to an Azure Network security group, list all Inbound NSG rules that have **O365** or **GSUITE** rules in their name. It then takes that set and compares it to the current O365 and GSUITE SMTP egress IPs to make sure the current NSG rules are up to date.
 
-### IaC
+### Infrastructre as Code
 
 The Lambda is deployed using [Serverless](https://www.serverless.com/framework/docs/). Serverless acts as the infrastructure as code and deploys the Lambda to a defined AWS account.
 
@@ -76,24 +76,19 @@ provider:
   runtime: python3.8
   region: eu-west-2
   stage: prod
+  
   # Reader permissions to access the Azure App secret during runtime
   iamRoleStatements:
-
     - Effect: "Allow"
-
       Action:
-
         - secretsmanager:GetSecretValue
-
       Resource: "arn:aws:secretsmanager:eu-west-2:433250546572:secret:<SECRET_NAME>"
 
 functions:
   nsg-watcher:
     handler: handler.run
     events:
-
       - schedule:
-
           # How often you want to run the function for.
           name: azure-nsg-checker-cron
           description: "Runs the Azure NSG Checker CRON Job"
@@ -114,7 +109,6 @@ functions:
       AWS_SECRET_REGION: eu-west-2
 
 plugins:
-
   +  serverless-python-requirements
 
 custom:
