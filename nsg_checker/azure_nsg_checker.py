@@ -30,8 +30,8 @@ IPV4_PATTERN = r"(?:\d{1,3}\.){3}\d{1,3}(?:/\d\d?)?"
 
 
 class AzureNSGChecker:
-    def __init__(self, azure_credentials: Dict, subscription: str,
-                 gsuite_netblocks: List[str], o365_url: str):
+    def __init__(self, azure_credentials: Dict, gsuite_netblocks: List[str],
+                 o365_url: str):
         self.client = self._connect(azure_credentials["client_id"],
                                     azure_credentials["tenant_id"],
                                     azure_credentials["key"],

@@ -63,9 +63,10 @@ def create_mock_azure_network(monkeypatch):
         "client_id": "22222",
         "tenant_id": "22222",
         "key": "22222",
+        "subscription_id": "2222"
     }
 
-    return AzureNSGChecker(azure_credentials, "22222", "gsuite_blocks",
+    return AzureNSGChecker(azure_credentials, "gsuite_blocks",
                            "https://www.google.com")
 
 
