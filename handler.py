@@ -8,6 +8,7 @@ from typing import Dict
 
 import boto3
 import srelogging
+from nsg_checker.message_dispatcher import MessageDispatcher
 from botocore.exceptions import ClientError
 from nsg_checker.azure_nsg_checker import AzureNSGChecker
 
@@ -33,22 +34,10 @@ def run(event, context):
 
     o365_rules = nsg_checker.get_o365_smtp_ipv4_cidrs()
     gsuite_rules = nsg_checker.get_gsuite_smtp_ipv4_cidrs()
+    
+    dispatcher = MessageDispatcher(o365_rules,gsuite_rules,o365_azure_result, gsuite_azure_result)
 
-    missing_o365 = o365_rules.difference(o365_azure_result)
-    extra_o365 = o365_azure_result - o365_rules
-    missing_gsuite = gsuite_rules.difference(gsuite_azure_result)
-    extra_gsuite = gsuite_azure_result - gsuite_rules
-
-    logging.info(f"The following NSG rules are missing from O365: {missing_o365}")
-
-    logging.info(f"The following NSG rules are missing from GSUITE: {missing_gsuite}")
-
-    logging.info(f"These NSG rules for O365 are no longer needed: {extra_o365}")
-
-    logging.info(f"These NSG rules for GSuite are no longer needed: {extra_gsuite}"
-    )
-
-    logging.info("Finished running Azure NSG Watcher Function. Closing down...")
+    dispatcher.dispatch_message()
 
 
 

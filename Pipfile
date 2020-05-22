@@ -7,12 +7,16 @@ verify_ssl = true
 pylint = "*"
 pytest = "*"
 yapf = "*"
+munch = "*"
+mock = "*"
+pytest-cov = "*"
 
 [packages]
 azure-mgmt-network = "*"
 dnspython = "*"
 boto3 = "*"
 srelogging = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"

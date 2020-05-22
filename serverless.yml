@@ -24,7 +24,7 @@ functions:
       # O365 Exchange URI
       O365_URL: https://endpoints.office.com/endpoints/Worldwide?ServiceAreas=Exchange&ClientRequestId=
       # Comma separated list
-      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com ,_netblocks3.google.com"
+      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com, _netblocks3.google.com"
       # Azure Subscription ID
       AZURE_SUBSCRIPTION: 359ee0f2-2ad9-4d4f-9187-aa466416a520
       # Azure App's Secret Name in AWS Secret Manager

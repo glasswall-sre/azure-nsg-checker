@@ -2,6 +2,13 @@
 
 Main bussiness logic to handle the retrieval of IPv4 addresses for O365 and GSuite.
 
+Parameters:
+    azure_credentials (Dict): Dictionary containing the Azure App's client_id, tenant_id and key.
+    subscription (str): The subscription where the Azure NSG is located.
+    gsuite_netblocks (List[str]): List of GSUITE netblocks.
+    o365_url (str): The O365 URL for exchange endpoints.
+    
+
 Author:
     Alex Potter-Dixon <apotter-dixon@glasswallsolutions.com>
 """
@@ -11,32 +18,29 @@ import json
 import logging
 import re
 import uuid
-from typing import Union, List
-
-from urllib.request import Request, urlopen
+from typing import List, Union, Dict
 
 import dns.resolver
+import requests
 from azure.common.credentials import ServicePrincipalCredentials
 from azure.mgmt.network import NetworkManagementClient
 
 # IPv4 with CIDR Regex Pattern
 IPV4_PATTERN = r"(?:\d{1,3}\.){3}\d{1,3}(?:/\d\d?)?"
 
-# GSUITE Netblocks to lookup SMTP address ranges
-
 
 class AzureNSGChecker:
-    def __init__(self, azure_credentials, subscription: str,
+    def __init__(self, azure_credentials: Dict, subscription: str,
                  gsuite_netblocks: List[str], o365_url: str):
-        self.client = self.connect(azure_credentials["client_id"],
-                                   azure_credentials["tenant_id"],
-                                   azure_credentials["key"], subscription)
+        self.client = self._connect(azure_credentials["client_id"],
+                                    azure_credentials["tenant_id"],
+                                    azure_credentials["key"], subscription)
 
         self.gsuite_netblocks = gsuite_netblocks
         self.o365_url = o365_url
 
-    def connect(self, client_id: str, tenant_id: str, key: str,
-                subscription: str) -> NetworkManagementClient:
+    def _connect(self, client_id: str, tenant_id: str, key: str,
+                 subscription: str) -> NetworkManagementClient:
         """Connects to the NetworkManagementClient data client.
 
         Arguments:
@@ -80,17 +84,19 @@ class AzureNSGChecker:
             rgp_name, nsg_name)
         o365_result = set()
         gsuite_result = set()
+
         for rule in azure_result.security_rules:
             if rule.destination_port_range == "25":
                 if "GSUITE" in rule.name:
                     gsuite_result.add(rule.source_address_prefix)
                 elif "O365" in rule.name:
                     o365_result.add(rule.source_address_prefix)
+
         logging.info(f"Successfully retrieving NSG rules for {nsg_name}")
         logging.debug(f"O365 Rules found: {o365_result}")
         logging.debug(f"GSUITE Rules found: {gsuite_result}")
 
-        return o365_result, gsuite_result
+        return (o365_result, gsuite_result)
 
     def get_o365_smtp_ipv4_cidrs(self) -> set:
         """Retrieves the current Office 365 Exchange SMTP egress CIDR IPv4s
@@ -102,18 +108,19 @@ class AzureNSGChecker:
                 Set of O365 IPv4 CIDR.
         """
         logging.info(f"Retrieving exchange IPv4 CIDRS from {self.o365_url}")
-        response = urlopen(Request(self.o365_url))
+        response = requests.get(self.o365_url)
         ipv4_addresses = set()
 
-        if response.code != 200:
+        if response.status_code != 200:
             logging.error(
-                f"{response.code} returned by O365. No O365 rules retrieved.")
+                f"{response.status_code} returned by O365. No O365 rules retrieved."
+            )
             return ipv4_addresses
 
-        response_json = json.loads(response.read().decode())
         logging.info("Successfully retrieved O365 exchange IPv4 addresses.")
 
-        for service_area in response_json:
+        response_data = json.loads(response.text)
+        for service_area in response_data:
             for url in service_area["urls"]:
                 if ".outlook.com" in url and "25" in service_area["tcpPorts"]:
                     for cidr in service_area["ips"]:
