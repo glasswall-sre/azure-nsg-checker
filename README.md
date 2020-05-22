@@ -4,12 +4,12 @@
 
 The Azure NSG Checker is a CRON AWS Lambda service that checks to see if your Azure NSG rules are up to date with the current O365 and GSUITE SMTP rules. This is a very specific Glasswall SRE but feel free to use this in your own projects.
 
-<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure_nsg_checker&metric=alert_status">
-<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure_nsg_checker&metric=sqale_rating">
-<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure_nsg_checker&metric=reliability_rating">
-<img align="center" src="https://codecov.io/gh/glasswall-sre/azure_nsg_checker/branch/master/graph/badge.svg">
-<img align="center" src="https://img.shields.io/github/license/glasswall-sre/azure_nsg_checker">
-<img align="center" src="https://img.shields.io/github/workflow/status/glasswall-sre/azure_nsg_checker/CI">
+<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure-nsg-checker&metric=alert_status">
+<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure-nsg-checker&metric=sqale_rating">
+<img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure-nsg-checker&metric=reliability_rating">
+<img align="center" src="https://codecov.io/gh/glasswall-sre/azure-nsg-checker/branch/master/graph/badge.svg">
+<img align="center" src="https://img.shields.io/github/license/glasswall-sre/azure-nsg-checker">
+<img align="center" src="https://img.shields.io/github/workflow/status/glasswall-sre/azure-nsg-checker/CI">
 
 </div>
 
