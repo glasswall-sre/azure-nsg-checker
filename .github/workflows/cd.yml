@@ -1,11 +1,11 @@
-name: Deploy
+name: CD
 
 on:
   push:
     branches: [master]
 
 jobs:
-  deploy-to-aws:
+  deploy:
     runs-on: ubuntu-latest
     env:      
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -25,12 +25,13 @@ jobs:
         python -m pip install --upgrade pip pipenv
         pipenv install --dev
     
-    - name: Serverless
-      uses: serverless/github-action@v1.53.0
-    
-    - name: Install Serverless Python requirements plugin 
-      run:  serverless plugin install --name serverless-python-requirements
-    
+    - name: Serverless install python-requirements plugin
+      uses: serverless/github-action@master
+      with:
+        args: plugin install --name serverless-python-requirements    
+  
     - name: Deploy to AWS using Serverless
-      run: serverless deploy
+      uses: serverless/github-action@master
+      with:
+        args: deploy    
       
