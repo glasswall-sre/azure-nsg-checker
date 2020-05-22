@@ -18,7 +18,7 @@ functions:
       - schedule:
           name: azure-nsg-checker-cron
           description: "Runs the Azure NSG Checker CRON Job"
-          rate: rate(2 minutes)
+          rate: rate(7 days)
 
     environment:
       # O365 Exchange URI
