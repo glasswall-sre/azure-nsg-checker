@@ -33,7 +33,7 @@ jobs:
         
     - name: Test with pytest 
       run: |
-        pipenv run pytest tests/ --cov nsg_checker --cov-report term-missing
+        pipenv run pytest tests/ --cov nsg_checker --cov-report term-missing --cov-report xml
         
     - name: Codecov
       uses: codecov/codecov-action@v1.0.7
