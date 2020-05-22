@@ -27,11 +27,10 @@ jobs:
       with:
         args: plugin install --name serverless-python-requirements    
   
-    - name: Deploy
-      uses: vlaaaaaaad/github-action@python-too
-      env:
-         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         AWS_SECRET_ACCESS_KEY: ${{ secrets. AWS_SECRET_ACCESS_KEY }}
-         SLS_DEBUG: "*"
+    - name: Serverless Deploy to AWS
+      uses: jackdcasey/github-action@python3.8-nodejs13
       with:
-         args: deploy
+        args: deploy
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
