@@ -25,7 +25,7 @@ The Lambda is deployed using [Serverless](https://www.serverless.com/framework/d
 
 ## User guide
 
-### Pre-requisite
+### Pre-requisites
 
 ### Setup
 
@@ -54,13 +54,14 @@ There is some initial setup in AWS, Azure and on the deployment environment that
 
 The deployment environment is where you will be deploying this from. Either a CI pipeline or a local machine.
 
-- Install [serverless](https://www.serverless.com/framework/docs/getting-started/)
-- Install the serverless plugin for python
+* Install [serverless](https://www.serverless.com/framework/docs/getting-started/)
+* Install the serverless plugin for python
 
-```
+``` 
 serverless plugin install --name serverless-python-requirements
 ```
-- Docker to build the Lambda Python Zip file. 
+
+* Docker to build the Lambda Python Zip file. 
 
 ### Configuration
 
@@ -76,16 +77,22 @@ provider:
   stage: prod
   # Reader permissions to access the Azure App secret during runtime
   iamRoleStatements:
+
     - Effect: "Allow"
+
       Action:
+
         - secretsmanager:GetSecretValue
+
       Resource: "arn:aws:secretsmanager:eu-west-2:433250546572:secret:<SECRET_NAME>"
 
 functions:
   nsg-watcher:
     handler: handler.run
     events:
+
       - schedule:
+
           # How often you want to run the function for.
           name: azure-nsg-checker-cron
           description: "Runs the Azure NSG Checker CRON Job"
@@ -108,7 +115,8 @@ functions:
       AWS_SECRET_REGION: eu-west-2
 
 plugins:
-  -  serverless-python-requirements
+
+  +  serverless-python-requirements
 
 custom:
   pythonRequirements:
@@ -117,6 +125,6 @@ custom:
 
 ### Deployment
 
-```
+``` 
 serverless deploy
 ```

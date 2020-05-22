@@ -20,6 +20,9 @@ var/
 *.egg
 .pytest_cache
 
+# Code cove
+.coverage
+
 # Serverless directories
 .serverless
 

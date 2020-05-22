@@ -1,6 +1,6 @@
 """AzureNSGChecker
 
-Main bussiness logic to handle the retrieval of IPv4 addresses for O365 and GSuite.
+Main business logic to handle the retrieval of IPv4 addresses for O365 and GSuite.
 
 Parameters:
     azure_credentials (Dict): Dictionary containing the Azure App's client_id, tenant_id and key.
@@ -18,7 +18,7 @@ import json
 import logging
 import re
 import uuid
-from typing import List, Union, Dict
+from typing import List, Tuple, Dict
 
 import dns.resolver
 import requests
@@ -67,7 +67,7 @@ class AzureNSGChecker:
         return client
 
     def get_azure_nsg_rules(self, rgp_name: str,
-                            nsg_name: str) -> Union[set, set]:
+                            nsg_name: str) -> Tuple[set, set]:
         """Retrieves the Azure NSG rules with GSUITE and O365 in their name
            and the SMTP Port 25.
 
@@ -76,7 +76,7 @@ class AzureNSGChecker:
             nsg_name (str): The name of the NSG inside the above rgp.
 
         Returns:
-            Union (Set,Set): Two sets, first O365 rules found in the Azure NSG
+            Tuple (Set,Set): Two sets, first O365 rules found in the Azure NSG
             and a second set of GSUITE rules found in the Azure NSG.
         """
         logging.info(f"Retriving NSG rules for nsg {nsg_name} ")
