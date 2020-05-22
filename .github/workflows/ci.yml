@@ -40,7 +40,7 @@ jobs:
       with:
         name: nsg_checker-upload
         token: ${{ secrets.CODECOV_TOKEN }}       
-        file: /home/runner/work/azure-nsg-checker/nsg_checker/coverage.xml               
+        file: /home/runner/work/azure-nsg-checker/azure-nsg-checker/coverage.xml               
         fail_ci_if_error: true
      
     - name: SonarCloud Scan
