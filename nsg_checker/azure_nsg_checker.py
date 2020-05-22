@@ -34,7 +34,8 @@ class AzureNSGChecker:
                  gsuite_netblocks: List[str], o365_url: str):
         self.client = self._connect(azure_credentials["client_id"],
                                     azure_credentials["tenant_id"],
-                                    azure_credentials["key"], subscription)
+                                    azure_credentials["key"],
+                                    azure_credentials["subscription_id"])
 
         self.gsuite_netblocks = gsuite_netblocks
         self.o365_url = o365_url

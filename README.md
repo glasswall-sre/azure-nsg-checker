@@ -46,7 +46,8 @@ There is some initial setup in AWS, Azure and on the deployment environment that
 {
   "client_id": "<INSERT_GUID>",
   "tenant_id": "<INSERT_GUID>",
-  "key": "<INSERT_KEY>"
+  "key": "<INSERT_KEY>",
+  "subscription_id": "<INSERT_GUID>"
 }
 ```
 
@@ -102,9 +103,7 @@ functions:
       # O365 Exchange URI to retrieve the SMTP CIDR Ips
       O365_URL: https://endpoints.office.com/endpoints/Worldwide?ServiceAreas=Exchange&ClientRequestId=
       # Comma separated list of Gsuites netblocks for their egress SMTP rules
-      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com, _netblocks3.google.com"
-      # Azure Subscription ID for where the Azure NSG is location
-      AZURE_SUBSCRIPTION: 359ee0f2-2ad9-4d4f-9187-aa466416a520
+      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com, _netblocks3.google.com" 
       # Azure App's Secret Name in AWS Secret Manager
       AZURE_APP_SECRET_NAME: azure_nsg_watcher
       #Azure Network security group resource group

@@ -20,14 +20,12 @@ def run(event, context):
 
     logging.debug("Retrieving environment variables.")
     o365_url = os.environ["O365_URL"] + str(uuid.uuid4())
-    gsuite_netblocks = os.environ["GSUITE_NETBLOCKS"].split(",")
-    azure_subscription = os.environ["AZURE_SUBSCRIPTION"]
+    gsuite_netblocks = os.environ["GSUITE_NETBLOCKS"].split(",")  
     azure_credentials = get_secret(os.environ["AZURE_APP_SECRET_NAME"], os.environ["AWS_SECRET_REGION"])
     logging.debug("Successfully loaded all required environment variables.")
 
 
-    nsg_checker = AzureNSGChecker(azure_credentials,
-                                  azure_subscription,
+    nsg_checker = AzureNSGChecker(azure_credentials,                                 
                                   gsuite_netblocks, o365_url)
 
     o365_azure_result, gsuite_azure_result = nsg_checker.get_azure_nsg_rules(os.environ["AZURE_NSG_RGP"], os.environ["AZURE_NSG_NAME"])
