@@ -109,7 +109,7 @@ functions:
       AWS_SECRET_REGION: eu-west-2
 
 plugins:
-  +  serverless-python-requirements
+  -  serverless-python-requirements
 
 custom:
   pythonRequirements:
