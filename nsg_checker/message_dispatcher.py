@@ -71,20 +71,20 @@ class MessageDispatcher:
         extra_o365_message, extra_gsuite_message = "", ""
 
         if self.missing_o365:
-            missing_o365_message = f"The following SMTP Ingress NSG rules are missing for O365 Exchange:\n\n{self.pretty_nsg_sets(self.missing_o365)}"
+            missing_o365_message = f"These port 25 SMTP Ingress NSG rules are missing for O365 Exchange:\n\n{self.pretty_nsg_sets(self.missing_o365)}"
         else:
             missing_o365_message = "No O365 NSG rules are missing"
 
         if self.missing_gsuite:
-            missing_gsuite_message = f"The following SMTP Ingress NSG rules are missing for GSUITE Gmail:\n\n{self.pretty_nsg_sets(self.missing_gsuite)}"
+            missing_gsuite_message = f"These port 25 SMTP Ingress NSG rules are missing for GSUITE Gmail:\n\n{self.pretty_nsg_sets(self.missing_gsuite)}"
         else:
             missing_gsuite_message = "No GSUITE NSG rules are missing"
 
         if self.extra_o365:
-            extra_o365_message = f"These SMTP NSG rules for O365 Exchange are no longer needed:\n\n{self.pretty_nsg_sets(self.extra_o365)}"
+            extra_o365_message = f"These port 25 SMTP NSG rules for O365 Exchange are no longer needed:\n\n{self.pretty_nsg_sets(self.extra_o365)}"
 
         if self.extra_gsuite:
-            extra_gsuite_message = f"These SMTP NSG rules for GSUITE Gmail are no longer needed:\n\n{self.pretty_nsg_sets(self.extra_gsuite)}"
+            extra_gsuite_message = f"These port 25 SMTP NSG rules for GSUITE Gmail are no longer needed:\n\n{self.pretty_nsg_sets(self.extra_gsuite)}"
 
         result = '\n'.join(
             filter(None, [
