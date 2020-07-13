@@ -20,10 +20,10 @@ class MessageDispatcher:
         the differences between them and then dispatches the message.
 
         Attributes:
-            o365_rules (set): The set of current O365 SMTP IPv4 addresses.
-            o365_azure_rules (set): The set of current O365 IPv4 addresses.
-            gsuite_azure_rules (set): The set of current GSUITE SMTP IPv4 addresses on an Azure NSG.
-            o365_rules (set): The set of current O365 IPv4 addresses address on an Azure NSG.
+            missing_o365 (set): A set of missing O365 NSG rules.
+            extra_o365 (set): A set of extra O365 NSG rules.
+            missing_gsuite (set): A set of missing GSUITE NSG rules.
+            extra_gsuite (set): A set of extra GSUITE NSG rules.
             slack_client (WebClient): Slack Client to dispatch messages.
             slack_channel (str): The slack channel ID to send notifications to.
         
