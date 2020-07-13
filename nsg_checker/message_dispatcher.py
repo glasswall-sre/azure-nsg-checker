@@ -53,7 +53,7 @@ class MessageDispatcher:
             f"Sending slack Azure NSG update to slack channel {self.slack_channel}"
         )
 
-        slack_text = self.create_slack_message
+        slack_text = self.create_slack_message()
 
         self.slack_client.chat_postMessage(channel=self.slack_channel,
                                            text=slack_text)
