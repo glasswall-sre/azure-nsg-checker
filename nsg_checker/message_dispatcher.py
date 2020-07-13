@@ -67,24 +67,24 @@ class MessageDispatcher:
         Returns:
             The slack message in a format that can be read my users.
         """
-        intro_message = "Here is your update from the Azure NSG Watcher: \n\n"
+        intro_message = "Here is your update from the Azure NSG Watcher:\n"
         extra_o365_message, extra_gsuite_message = "", ""
 
         if self.missing_o365:
-            missing_o365_message = f"The following SMTP Ingress NSG rules are missing for O365 Exchange:\n\t{self.pretty_nsg_sets(self.missing_o365)}"
+            missing_o365_message = f"The following SMTP Ingress NSG rules are missing for O365 Exchange:{self.pretty_nsg_sets(self.missing_o365)}"
         else:
             missing_o365_message = "No O365 NSG rules are missing"
 
         if self.missing_gsuite:
-            missing_gsuite_message = f"The following SMTP Ingress NSG rules are missing for GSUITE Gmail:\n\t{self.pretty_nsg_sets(self.missing_gsuite)}"
+            missing_gsuite_message = f"The following SMTP Ingress NSG rules are missing for GSUITE Gmail:{self.pretty_nsg_sets(self.missing_gsuite)}"
         else:
             missing_gsuite_message = "No GSUITE NSG rules are missing"
 
         if self.extra_o365:
-            extra_o365_message = f"These NSG rules for O365 Exchange are no longer needed:\n\t {self.pretty_nsg_sets(self.extra_o365)}"
+            extra_o365_message = f"These SMTP NSG rules for O365 Exchange are no longer needed:{self.pretty_nsg_sets(self.extra_o365)}"
 
         if self.extra_gsuite:
-            extra_gsuite_message = f"These NSG rules for GSUITE Gmail are no longer needed:\n\t {self.pretty_nsg_sets(self.extra_gsuite)}"
+            extra_gsuite_message = f"These SMTP NSG rules for GSUITE Gmail are no longer needed:{self.pretty_nsg_sets(self.extra_gsuite)}"
 
         result = '\n'.join(
             filter(None, [
@@ -105,6 +105,6 @@ class MessageDispatcher:
             A string with each nsg rule on a new line as a bullet point list.
         """
 
-        pretty_list = '\n '.join(f"\t- {nsg}" for nsg in nsg_set)
+        pretty_list = '\n '.join(f"\n\t- {nsg}" for nsg in nsg_set)
 
         return pretty_list
