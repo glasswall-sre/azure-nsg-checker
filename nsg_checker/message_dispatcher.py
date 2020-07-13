@@ -1,14 +1,5 @@
 """
-MessageDispatcher for the Azure NSG Checker. It takes the IP sets, calculates
-the differences between them and then dispatches the message.
-
-Parameters:
-    o365_rules (set): The set of current O365 SMTP IPv4 addresses.
-    o365_azure_rules (set): The set of current O365 IPv4 addresses.
-    gsuite_azure_rules (set): The set of current GSUITE SMTP IPv4 addresses on an Azure NSG.
-    o365_rules (set): The set of current O365 IPv4 addresses address on an Azure NSG.
-    slack_oauth (str): The slack Oauth token.
-    slack_channel (str): The slack channel ID to send notifications to.
+MessageDispatcher to handle the creation and dispatching of a message to Slack.
 
 Author:
     Alex Potter-Dixon <apotter-dixon@glasswallsolutions.com>
@@ -24,6 +15,27 @@ class MessageDispatcher:
     def __init__(self, o365_rules: Set, gsuite_rules: Set,
                  o365_azure_rules: Set, gsuite_azure_rules: Set,
                  slack_oauth: str, slack_channel: str) -> None:
+        """
+        MessageDispatcher for the Azure NSG Checker. It takes the IP sets, calculates
+        the differences between them and then dispatches the message.
+
+        Attributes:
+            o365_rules (set): The set of current O365 SMTP IPv4 addresses.
+            o365_azure_rules (set): The set of current O365 IPv4 addresses.
+            gsuite_azure_rules (set): The set of current GSUITE SMTP IPv4 addresses on an Azure NSG.
+            o365_rules (set): The set of current O365 IPv4 addresses address on an Azure NSG.
+            slack_client (WebClient): Slack Client to dispatch messages.
+            slack_channel (str): The slack channel ID to send notifications to.
+        
+        Args:
+            o365_rules (set): The set of current O365 SMTP IPv4 addresses.
+            o365_azure_rules (set): The set of current O365 IPv4 addresses.
+            gsuite_azure_rules (set): The set of current GSUITE SMTP IPv4 addresses on an Azure NSG.
+            o365_rules (set): The set of current O365 IPv4 addresses address on an Azure NSG.
+            slack_oauth (str): The slack Oauth token.
+            slack_channel (str): The slack channel ID to send notifications to.
+        
+        """
 
         self.missing_o365 = o365_rules.difference(o365_azure_rules)
         self.extra_o365 = o365_azure_rules - o365_rules
