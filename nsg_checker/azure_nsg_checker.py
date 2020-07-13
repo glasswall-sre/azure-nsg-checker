@@ -18,7 +18,7 @@ import json
 import logging
 import re
 import uuid
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Set
 
 import dns.resolver
 import requests
@@ -68,7 +68,7 @@ class AzureNSGChecker:
         return client
 
     def get_azure_nsg_rules(self, rgp_name: str,
-                            nsg_name: str) -> Tuple[set, set]:
+                            nsg_name: str) -> Tuple[Set, Set]:
         """Retrieves the Azure NSG rules with GSUITE and O365 in their name
            and the SMTP Port 25.
 
@@ -99,7 +99,7 @@ class AzureNSGChecker:
 
         return (o365_result, gsuite_result)
 
-    def get_o365_smtp_ipv4_cidrs(self) -> set:
+    def get_o365_smtp_ipv4_cidrs(self) -> Set:
         """Retrieves the current Office 365 Exchange SMTP egress CIDR IPv4s
            addresses in a set.
 
@@ -132,7 +132,7 @@ class AzureNSGChecker:
         logging.debug(f"O365 IPv4 CIDR addresses found: {ipv4_addresses}.")
         return ipv4_addresses
 
-    def get_gsuite_smtp_ipv4_cidrs(self) -> set:
+    def get_gsuite_smtp_ipv4_cidrs(self) -> Set:
         """Retrieves the current GSUITE SMTP egress CIDR IPv4s 
            addresses in the format of a set.
 

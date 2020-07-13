@@ -13,12 +13,15 @@ Parameters:
 """
 
 import logging
+from typing import Set
+
 from slack import WebClient
 
 
 class MessageDispatcher:
-    def __init__(self, o365_rules, gsuite_rules, o365_azure_rules,
-                 gsuite_azure_rules, slack_oauth, slack_channel):
+    def __init__(self, o365_rules: Set, gsuite_rules: Set,
+                 o365_azure_rules: Set, gsuite_azure_rules: Set,
+                 slack_oauth: str, slack_channel: str) -> None:
 
         self.missing_o365 = o365_rules.difference(o365_azure_rules)
         self.extra_o365 = o365_azure_rules - o365_rules
@@ -27,7 +30,7 @@ class MessageDispatcher:
         self.slack_client = WebClient(token=slack_oauth)
         self.slack_channel = slack_channel
 
-    def dispatch_message(self):
+    def dispatch_slack_message(self):
         """
         Dispatches the message to stdout. PLACEHOLDER for SNS work
         """
@@ -43,7 +46,7 @@ class MessageDispatcher:
 
         logging.info(f"Sent slack message to {self.slack_channel}")
 
-    def create_slack_message(self):
+    def create_slack_message(self) -> str:
         """
         Creates the slack message to be sent to slack.
 
@@ -77,7 +80,7 @@ class MessageDispatcher:
 
         return result
 
-    def pretty_nsg_sets(self, nsg_set):
+    def pretty_nsg_sets(self, nsg_set: Set) -> str:
         """
         Takes a set of nsg rules and pretty formats them into a bullet point list.
 
@@ -87,7 +90,7 @@ class MessageDispatcher:
         Returns:
             A string with each nsg rule on a new line as a bullet point list.
         """
-        print(nsg_set)
+
         pretty_list = '\n '.join(f"- {nsg}" for nsg in nsg_set)
 
         return pretty_list

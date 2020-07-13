@@ -192,6 +192,6 @@ def test_dispatch_runs(mock_slack_client, mock_log):
                                  gsuite_azure_rules, "12343",
                                  "azure-nsg-checker")
 
-    dispatch.dispatch_message()
+    dispatch.dispatch_slack_message()
 
     mock_log.assert_called_with("Sent slack message to azure-nsg-checker")

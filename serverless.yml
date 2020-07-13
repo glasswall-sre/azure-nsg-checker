@@ -24,7 +24,7 @@ functions:
       # O365 Exchange URI
       O365_URL: https://endpoints.office.com/endpoints/Worldwide?ServiceAreas=Exchange&ClientRequestId=
       # Comma separated list
-      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com, _netblocks3.google.com"     
+      GSUITE_NETBLOCKS: "_netblocks.google.com, _netblocks2.google.com, _netblocks3.google.com"
       # Azure App's Secret Name in AWS Secret Manager
       AZURE_APP_SECRET_NAME: azure_nsg_watcher
       #Azure NSG RGP
@@ -33,8 +33,8 @@ functions:
       AZURE_NSG_NAME: nsg-uks-gwc-k8s-subnet-uksprod1
       # AWS Secret Region
       AWS_SECRET_REGION: eu-west-2
-      # Slack Channel to send notifications to
-      SLACK_CHANNEL: azure-nsg-checker
+      # Slack Channel ID to send notifications to
+      SLACK_CHANNEL: G016PLFGRPG
 
 plugins:
   - serverless-python-requirements
