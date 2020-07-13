@@ -28,3 +28,6 @@ var/
 
 # Node js
 node_modules
+
+# Code Coverage
+coverage.xml

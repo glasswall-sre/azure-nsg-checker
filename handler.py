@@ -33,7 +33,7 @@ def run(event, context):
     o365_rules = nsg_checker.get_o365_smtp_ipv4_cidrs()
     gsuite_rules = nsg_checker.get_gsuite_smtp_ipv4_cidrs()
     
-    dispatcher = MessageDispatcher(o365_rules,gsuite_rules,o365_azure_result, gsuite_azure_result)
+    dispatcher = MessageDispatcher(o365_rules,gsuite_rules,o365_azure_result, gsuite_azure_result, azure_credentials["slack_oauth"], os.environ["SLACK_CHANNEL"])
 
     dispatcher.dispatch_message()
 
