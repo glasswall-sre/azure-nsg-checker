@@ -17,6 +17,7 @@ dnspython = "*"
 boto3 = "*"
 srelogging = "*"
 requests = "*"
+slackclient = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"

@@ -2,7 +2,7 @@
 
 # Azure NSG Checker
 
-The Azure NSG Checker is a CRON AWS Lambda service that checks to see if your Azure NSG rules are up to date with the current O365 and GSUITE SMTP rules. This is a very specific Glasswall SRE but feel free to use this in your own projects.
+The Azure NSG Checker is a CRON AWS Lambda service that checks to see if your Azure NSG rules are up to date with the current O365 and GSUITE SMTP rules. It will then send any changes to a configured Slack Channel. This is a very specific Glasswall SRE but feel free to use this in your own projects.
 
 <img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure-nsg-checker&metric=alert_status">
 <img align="center" src="https://sonarcloud.io/api/project_badges/measure?project=azure-nsg-checker&metric=sqale_rating">
@@ -47,7 +47,8 @@ There is some initial setup in AWS, Azure and on the deployment environment that
   "client_id": "<INSERT_GUID>",
   "tenant_id": "<INSERT_GUID>",
   "key": "<INSERT_KEY>",
-  "subscription_id": "<INSERT_GUID>"
+  "subscription_id": "<INSERT_GUID>",
+  "slack_oauth": "<INSERT_OAUTH_TOKEN>"
 }
 ```
 
@@ -79,16 +80,22 @@ provider:
   
   # Reader permissions to access the Azure App secret during runtime
   iamRoleStatements:
+
     - Effect: "Allow"
+
       Action:
+
         - secretsmanager:GetSecretValue
+
       Resource: "arn:aws:secretsmanager:eu-west-2:433250546572:secret:<SECRET_NAME>"
 
 functions:
   nsg-watcher:
     handler: handler.run
     events:
+
       - schedule:
+
           # How often you want to run the function for.
           name: azure-nsg-checker-cron
           description: "Runs the Azure NSG Checker CRON Job"
@@ -107,9 +114,12 @@ functions:
       AZURE_NSG_NAME: nsg-uks-gwc-k8s-subnet-uksprod1
       # AWS Secret Region for where the secret is located.
       AWS_SECRET_REGION: eu-west-2
+      # Slack channel to send notifications to
+      SLACK_CHANNEL: azre-nsg-checker
 
 plugins:
-  -  serverless-python-requirements
+
+  +  serverless-python-requirements
 
 custom:
   pythonRequirements:
