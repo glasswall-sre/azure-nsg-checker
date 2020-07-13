@@ -114,8 +114,8 @@ functions:
       AZURE_NSG_NAME: nsg-uks-gwc-k8s-subnet-uksprod1
       # AWS Secret Region for where the secret is located.
       AWS_SECRET_REGION: eu-west-2
-      # Slack channel to send notifications to
-      SLACK_CHANNEL: azre-nsg-checker
+      # Slack channel ID to send notifications to
+      SLACK_CHANNEL: A215PLFGRWF
 
 plugins:
 

@@ -8,8 +8,10 @@ Parameters:
     gsuite_azure_rules (set): The set of current GSUITE SMTP IPv4 addresses on an Azure NSG.
     o365_rules (set): The set of current O365 IPv4 addresses address on an Azure NSG.
     slack_oauth (str): The slack Oauth token.
-    slack_channel (str): The slack channel to send notifications to.
+    slack_channel (str): The slack channel ID to send notifications to.
 
+Author:
+    Alex Potter-Dixon <apotter-dixon@glasswallsolutions.com>
 """
 
 import logging
