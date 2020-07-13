@@ -64,7 +64,7 @@ def test_message_extra_gsuite():
 
     slack_text = dispatch.create_slack_message()
 
-    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nNo GSUITE NSG rules are missing\nThese SMTP NSG rules for GSUITE Gmail are no longer needed:\n\t- 200.168.3.1/24"
+    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nNo GSUITE NSG rules are missing\nThese SMTP NSG rules for GSUITE Gmail are no longer needed:\n\n\t- 200.168.3.1/24"
 
 
 def test_message_extra_0365():
@@ -94,7 +94,7 @@ def test_message_extra_0365():
 
     slack_text = dispatch.create_slack_message()
 
-    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nNo GSUITE NSG rules are missing\nThese SMTP NSG rules for O365 Exchange are no longer needed:\n\t- 201.168.12.1/24\nThese SMTP NSG rules for GSUITE Gmail are no longer needed:\n\t- 200.168.3.1/24"
+    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nNo GSUITE NSG rules are missing\nThese SMTP NSG rules for O365 Exchange are no longer needed:\n\n\t- 201.168.12.1/24\nThese SMTP NSG rules for GSUITE Gmail are no longer needed:\n\n\t- 200.168.3.1/24"
 
 
 def test_no_extra_message():
@@ -144,7 +144,7 @@ def test_missing_o365_message():
 
     slack_text = dispatch.create_slack_message()
 
-    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nThe following SMTP Ingress NSG rules are missing for O365 Exchange:\n\t- 202.168.3.1/24\nNo GSUITE NSG rules are missing"
+    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nThe following SMTP Ingress NSG rules are missing for O365 Exchange:\n\n\t- 202.168.3.1/24\nNo GSUITE NSG rules are missing"
 
 
 def test_missing_gsuite_message():
@@ -168,7 +168,7 @@ def test_missing_gsuite_message():
 
     slack_text = dispatch.create_slack_message()
 
-    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nThe following SMTP Ingress NSG rules are missing for GSUITE Gmail:\n\t- 201.168.3.1/24"
+    assert slack_text == "Here is your update from the Azure NSG Watcher:\n\nNo O365 NSG rules are missing\nThe following SMTP Ingress NSG rules are missing for GSUITE Gmail:\n\n\t- 201.168.3.1/24"
 
 
 @patch('nsg_checker.message_dispatcher.logging.info')
