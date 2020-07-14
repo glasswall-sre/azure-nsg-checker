@@ -87,17 +87,15 @@ class AzureNSGChecker:
         gsuite_result = set()
 
         for rule in azure_result.security_rules:
-            logging.info(rule.destination_port_range)
-            if rule.destination_port_range == "25":
-                logging.info(rule.name.lower())
+            if "25" in rule.destination_port_ranges:
                 if "gsuite" in rule.name.lower():
-                    gsuite_result.add(rule.source_address_prefix)
+                    gsuite_result.update(rule.source_address_prefixes)
                 elif "o365" in rule.name.lower():
-                    o365_result.add(rule.source_address_prefix)
+                    o365_result.update(rule.source_address_prefixes)
 
         logging.info(f"Successfully retrieving NSG rules for {nsg_name}")
-        logging.info(f"O365 Rules found: {o365_result}")
-        logging.info(f"GSUITE Rules found: {gsuite_result}")
+        logging.debug(f"O365 Rules found: {o365_result}")
+        logging.debug(f"GSUITE Rules found: {gsuite_result}")
 
         return (o365_result, gsuite_result)
 
