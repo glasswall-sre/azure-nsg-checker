@@ -22,29 +22,35 @@ class MockNetworkManagementClient:
 
             result_1 = {
                 "security_rules": [{
-                    "destination_port_range": "25",
-                    "name": "gsuite_Rule_1",
-                    "source_address_prefix": "192.168.0.1/24"
+                    "destination_port_ranges": ["25"],
+                    "name":
+                    "gsuite_Rule_1",
+                    "source_address_prefixes": ["192.168.0.1/24"]
                 }, {
-                    "destination_port_range": "25",
-                    "name": "gsuite-smtp-192.168.1.1-24-uksprod15c439088",
-                    "source_address_prefix": "192.168.1.1/24"
+                    "destination_port_ranges": ["25"],
+                    "name":
+                    "gsuite-smtp-192.168.1.1-24-uksprod15c439088",
+                    "source_address_prefixes": ["192.168.1.1/24"]
                 }, {
-                    "destination_port_range": "25",
-                    "name": "o365-smtp-192.168.2.1-24-uksprod1b75e0ca7",
-                    "source_address_prefix": "192.168.2.1/24"
+                    "destination_port_ranges": ["25"],
+                    "name":
+                    "o365-smtp-192.168.2.1-24-uksprod1b75e0ca7",
+                    "source_address_prefixes": ["192.168.2.1/24"]
                 }, {
-                    "destination_port_range": "25",
-                    "name": "o365_Rule_2",
-                    "source_address_prefix": "192.168.3.1/24"
+                    "destination_port_ranges": ["25"],
+                    "name":
+                    "o365_Rule_2",
+                    "source_address_prefixes": ["192.168.3.1/24"]
                 }, {
-                    "destination_port_range": "25",
-                    "name": "Mimecast",
-                    "source_address_prefix": "172.168.0.1/24"
+                    "destination_port_ranges": ["25"],
+                    "name":
+                    "Mimecast",
+                    "source_address_prefixes": ["172.168.0.1/24"]
                 }, {
-                    "destination_port_range": "443",
-                    "name": "O365_443_Rule_3",
-                    "source_address_prefix": "172.168.1.1/24"
+                    "destination_port_ranges": ["443"],
+                    "name":
+                    "O365_443_Rule_3",
+                    "source_address_prefixes": ["172.168.1.1/24"]
                 }]
             }
 
