@@ -34,7 +34,7 @@ functions:
       # AWS Secret Region
       AWS_SECRET_REGION: eu-west-2
       # Slack Channel ID to send notifications to
-      SLACK_CHANNEL: G016PLFGRPG
+      SLACK_CHANNEL: C017689SDCL
 
 plugins:
   - serverless-python-requirements
