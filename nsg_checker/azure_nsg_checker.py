@@ -85,9 +85,11 @@ class AzureNSGChecker:
             rgp_name, nsg_name)
         o365_result = set()
         gsuite_result = set()
-        logging.info(azure_result)
+
         for rule in azure_result.security_rules:
+            logging.info(rule.destination_port_range)
             if rule.destination_port_range == "25":
+                logging.info(rule.name.lower())
                 if "gsuite" in rule.name.lower():
                     gsuite_result.add(rule.source_address_prefix)
                 elif "o365" in rule.name.lower():
