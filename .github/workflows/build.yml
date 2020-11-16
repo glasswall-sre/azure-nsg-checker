@@ -1,4 +1,4 @@
-name: Gated
+name: Build Pipeline
 
 on:
   pull_request:
